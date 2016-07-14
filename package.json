@@ -1,0 +1,24 @@
+{
+  "name": "electrode-gulp-load-tasks",
+  "version": "1.0.0",
+  "description": "Load gulp tasks from an object data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gecgithub01.walmart.com:xchen11/electrode-gulp-load-tasks.git"
+  },
+  "keywords": [],
+  "author": "Joel Chen <xchen@walmartlabs.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "gulp-help": "^1.6.1",
+    "gulp-task-listing": "^1.0.1",
+    "run-sequence": "^1.2.2"
+  },
+  "optionalDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
