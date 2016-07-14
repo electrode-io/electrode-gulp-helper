@@ -34,7 +34,7 @@ function loadGulpTasks(gulp, tasks) {
             }
           };
           const desc = typeof data.desc === "string" ? data.desc : "";
-          hGulp.task(taskName, `${desc} ${data.dep && "- deps: " + JSON.stringify(data.dep)}`,
+          hGulp.task(taskName, `${desc}${data.dep && " - deps: " + JSON.stringify(data.dep) || ""}`,
             makeDep(), data.task);
         } else {
           const desc = typeof data.desc === "string" ? data.desc : "";
