@@ -9,6 +9,11 @@ function loadGulpTasks(gulp, tasks) {
   const hGulp = gulpHelp(gulp, {hideDepsMessage: true});
   hGulp.task('default', "List all available tasks", taskListing);
 
+
+  const addTask = (taskName, description, dep, task) => {
+    hGulp.task(taskName, taskName.startsWith("~") ? false : description, dep, task);
+  };
+
   Object.keys(tasks).forEach((taskName) => {
     const data = tasks[taskName];
     if (data.name) {
@@ -16,29 +21,29 @@ function loadGulpTasks(gulp, tasks) {
     }
     switch (typeof data) {
       case "function":
-        hGulp.task(taskName, taskName.startsWith("~") ? false : "", data);
+        addTask(taskName, "", undefined, data);
         break;
       case "object":
         if (Array.isArray(data)) {
-          hGulp.task(taskName, `  - tasks: ${JSON.stringify(data)}`, () => {
+          addTask(taskName, `  - tasks: ${JSON.stringify(data)}`, undefined, () => {
             runSequence.use(gulp).apply(null, data);
           });
         } else if (typeof data.task === "function") {
           const makeDep = () => {
             if (data.dep) {
               const depName = `${taskName}$deps$`;
-              hGulp.task(depName, false, function () {
+              addTask(depName, false, function () {
                 runSequence.use(gulp).apply(null, data.dep);
               });
               return [depName];
             }
           };
           const desc = typeof data.desc === "string" ? data.desc : "";
-          hGulp.task(taskName, `${desc}${data.dep && " - deps: " + JSON.stringify(data.dep) || ""}`,
+          addTask(taskName, `${desc}${data.dep && "  - deps: " + JSON.stringify(data.dep) || ""}`,
             makeDep(), data.task);
         } else {
           const desc = typeof data.desc === "string" ? data.desc : "";
-          hGulp.task(taskName, `${desc}  - tasks: ${JSON.stringify(data.task)}`,
+          addTask(taskName, `${desc}  - tasks: ${JSON.stringify(data.task)}`,
             undefined, () => {
               runSequence.use(gulp).apply(null, data.task);
             });
