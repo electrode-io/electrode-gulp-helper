@@ -1,6 +1,6 @@
 {
   "name": "@walmart/electrode-gulp-load-tasks",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Load gulp tasks from an object data",
   "main": "index.js",
   "scripts": {
