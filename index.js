@@ -38,11 +38,11 @@ function loadGulpTasks(gulp, tasks) {
               return [depName];
             }
           };
-          const desc = typeof data.desc === "string" ? data.desc : "";
+          const desc = data.desc !== undefined ? data.desc : "";
           addTask(taskName, `${desc}${data.dep && "  - deps: " + JSON.stringify(data.dep) || ""}`,
             makeDep(), data.task);
         } else {
-          const desc = typeof data.desc === "string" ? data.desc : "";
+          const desc = data.desc !== undefined ? data.desc : "";
           addTask(taskName, `${desc}  - tasks: ${JSON.stringify(data.task)}`,
             undefined, () => {
               runSequence.use(gulp).apply(null, data.task);

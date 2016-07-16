@@ -77,9 +77,9 @@ If it's an ***object***, it should follow this spec:
 }
 ```
 
-> When adding the task to gulp, description is the field `desc` or `""`
+If the description field `desc` is false, then the task is not listed in help.  If it's undefined, then `""` will be used.
 
-The `dep` array is add to gulp like this.  It creates a new task using the same name with a postfix `$deps$`.
+The `dep` specified a dependent array of tasks following the [array spec](#array) above, to be executed before the actual task.  It is add to gulp like below, with a new delegate task using the same name with a postfix `$deps$`.
 
 ```js
 gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, taskData.dep) );
