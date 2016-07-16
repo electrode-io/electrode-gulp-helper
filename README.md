@@ -13,7 +13,7 @@ npm install @walmart/electrode-gulp-load-tasks --save-dev
 ## API
 
 ```js
-gulpLoadTasks( gulp, tasks )
+gulpLoadTasks( tasks, gulp )
 ```
 
 ***gulp*** - pass in gulp instance.  If not provided, then it's attempted with `require("gulp")`.

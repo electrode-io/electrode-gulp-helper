@@ -4,7 +4,8 @@
   "description": "Load gulp tasks from an object data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/spec",
+    "coverage": "istanbul cover --include-all-sources _mocha -- -c test/spec"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,13 @@
   },
   "optionalDependencies": {
     "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.1.0",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-filenames": "^1.0.0",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3"
   }
 }
