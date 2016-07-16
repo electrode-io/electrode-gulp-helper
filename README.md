@@ -22,29 +22,33 @@ gulpLoadTasks( gulp, tasks )
 
 ```js
 {
-    "task1-name": data,
-    "task2-name": data
+    "task1-name": taskData,
+    "task2-name": taskData
 }
 ```
 
-Where `data` can be a `function`, `array`, or `object`.
+Where [taskData](#taskdata) can be a `function`, `array`, or `object`.
 
-### function
+### taskData
 
-If it's a ***function***, it's passed to gulp like this.
+`taskData` specifies a task for gulp.  It can be a `function`, `array`, or `object`.
+
+#### function
+
+If it's a ***function***, then it's to be called by gulp when it executes the task.  It's passed to gulp like this.
 
 ```
-gulp.task( taskName, description, data );
+gulp.task( taskName, description, taskData );
 ```
 
 > The description support is added with the module [gulp-help]
 
-If `taskName` starts with `~` then the description is `false` and disabled, else it's an empty string `""`.
+If `taskName` starts with `~` then the description is `false` and disabled, else it's an empty string `""`.  You can specify description if you use [object](#object) for taskData. 
 
 
-### array
+#### array
 
-If it's an ***array***, it specifies a list of sequential tasks. 
+If it's an ***array***, it specifies a list of tasks or group of tasks in a subarray to be executed sequentially.  A group of tasks will be executed in parallel.
 
 Example: `[ "task1", "task2", [ "p-task1", "p-task2" ], "task3" ]`
 
@@ -52,15 +56,15 @@ Example: `[ "task1", "task2", [ "p-task1", "p-task2" ], "task3" ]`
 
 > The sequential execution support is from [run-sequence].
 
-It's passed to [run-sequence] like this, with ***description*** being a stringified copy of the array.
+The array is passed to [run-sequence] like this, with ***description*** being a stringified copy of the array.
 
 ```
 gulp.task( taskName, description, () => {
-    runSequence.use(gulp).apply(null, data);
+    runSequence.use(gulp).apply(null, taskData);
 });
 ```
 
-### object
+#### object
 
 If it's an ***object***, it should follow this spec:
 
@@ -78,7 +82,7 @@ If it's an ***object***, it should follow this spec:
 The `dep` array is add to gulp like this.  It creates a new task using the same name with a postfix `$deps$`.
 
 ```js
-gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, data.dep) );
+gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, taskData.dep) );
 ```
 
 [gulp-help]: https://github.com/chmontgomery/gulp-help
