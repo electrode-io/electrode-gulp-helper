@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gecgithub01.walmart.com:xchen11/electrode-gulp-load-tasks.git"
+    "url": "git@gecgithub01.walmart.com:electrode/electrode-gulp-load-tasks.git"
   },
   "keywords": [],
   "author": "Joel Chen <xchen@walmartlabs.com>",
