@@ -32,8 +32,8 @@ describe("gulp load tasks", function () {
       "a": () => a++,
       // simple array
       "b": ["a"],
-      // simple function with help turned off by ~
-      "~c": () => c++,
+      // simple function with help turned off by .
+      ".c": () => c++,
       // object with array task
       "d": {
         task: ["b"]
@@ -52,7 +52,7 @@ describe("gulp load tasks", function () {
       "g": {
         dep: ["a"],
         desc: "task g",
-        task: ["~c"]
+        task: [".c"]
       },
       // object with name
       "h": {
@@ -64,7 +64,7 @@ describe("gulp load tasks", function () {
     };
 
     gulpLoadTasks(tasks, gulp);
-    gulp.start("~c");
+    gulp.start(".c");
     expect(c).to.equal(1);
     gulp.start("e");
     expect(e).to.equal(1);
@@ -73,7 +73,7 @@ describe("gulp load tasks", function () {
     expect(c).to.equal(2);
     expect(gulp.tasks["f"].help).to.be.ok;
     expect(gulp.tasks["f"].help.message).to.equal("task f");
-    expect(gulp.tasks["~c"].help).to.equal(undefined);
+    expect(gulp.tasks[".c"].help).to.equal(undefined);
     expect(gulp.tasks["h"]).to.equal(undefined);
     expect(gulp.tasks["hh"]).to.be.ok;
     expect(gulp.tasks["hh"].help).to.equal(undefined);

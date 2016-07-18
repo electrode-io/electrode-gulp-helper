@@ -43,7 +43,7 @@ gulp.task( taskName, description, taskData );
 
 > The description support is added with the module [gulp-help]
 
-If `taskName` starts with `~` then the description is `false` and disabled, else it's an empty string `""`.  You can specify description if you use [object](#object) for taskData. 
+If `taskName` starts with `.` then the description is `false` and disabled, else it's an empty string `""`.  You can specify description if you use [object](#object) for `taskData`. 
 
 
 #### array
@@ -77,9 +77,9 @@ If it's an ***object***, it should follow this spec:
 }
 ```
 
-If the description field `desc` is false, then the task is not listed in help.  If it's undefined, then `""` will be used.
+If the description field `desc` is `false`, then the task is not listed in help.  If it's `undefined`, then `""` will be used.
 
-The `dep` specified a dependent array of tasks following the [array spec](#array) above, to be executed before the actual task.  It is add to gulp like below, with a new delegate task using the same name with a postfix `$deps$`.
+The `dep` specified a dependent array of tasks following the [array spec](#array) above, to be executed before the actual task.  It is added to gulp like below, with a new delegate task using the same name with a postfix `$deps$`.
 
 ```js
 gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, taskData.dep) );

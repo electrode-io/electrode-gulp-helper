@@ -32,7 +32,7 @@ function loadGulpTasks(tasks, gulp) {
       throw new Error(`task ${taskName} - desc field must be undefined, a string, or false`);
     }
 
-    hGulp.task(taskName, taskName.startsWith("~") ? false : desc, makeDep(taskName, dep), task);
+    hGulp.task(taskName, taskName.startsWith(".") ? false : desc, makeDep(taskName, dep), task);
   };
 
   const addArrayTask = (taskName, desc, dep, taskArr) => {
