@@ -10,11 +10,19 @@ function loadGulpTasks(tasks, gulp) {
   const hGulp = gulpHelp(gulp, {hideDepsMessage: true});
   hGulp.task('default', "List all available tasks", taskListing);
 
+  const makeRunSequence = (taskArray) => {
+    taskArray = taskArray.slice(0);
+    return (cb) => {
+      taskArray.push(cb);
+      return runSequence.use(gulp).apply(null, taskArray);
+    }
+  };
+
   const makeDep = (taskName, dep) => {
     if (dep) {
       assert(Array.isArray(dep), `task ${taskName} - dependent tasks must be an array`);
       const depName = `${taskName}$deps$`;
-      hGulp.task(depName, false, () => runSequence.use(gulp).apply(null, dep));
+      hGulp.task(depName, false, makeRunSequence(dep));
       return [depName];
     }
   };
@@ -35,11 +43,11 @@ function loadGulpTasks(tasks, gulp) {
     hGulp.task(taskName, taskName.startsWith(".") ? false : desc, makeDep(taskName, dep), task);
   };
 
-  const addArrayTask = (taskName, desc, dep, taskArr) => {
+  const addArrayTask = (taskName, desc, dep, taskArray) => {
     if (typeof desc === "string") {
-      desc = `${desc}  - tasks: ${JSON.stringify(taskArr)}`;
+      desc = `${desc}  - tasks: ${JSON.stringify(taskArray)}`;
     }
-    addTask(taskName, desc, dep, () => runSequence.use(gulp).apply(null, taskArr));
+    addTask(taskName, desc, dep, makeRunSequence(taskArray));
   };
 
   assert(typeof tasks === "object" && !Array.isArray(tasks), "tasks must be an object");
