@@ -16,7 +16,6 @@
   "license": "UNLICENSED",
   "dependencies": {
     "gulp-help": "^1.6.1",
-    "gulp-task-listing": "^1.0.1",
     "run-sequence": "^1.2.2"
   },
   "optionalDependencies": {

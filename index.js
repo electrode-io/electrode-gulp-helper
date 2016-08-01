@@ -1,14 +1,13 @@
 "use strict";
 
 const runSequence = require("run-sequence");
-const taskListing = require('gulp-task-listing');
 const gulpHelp = require("gulp-help");
 const assert = require("assert");
 
 function loadGulpTasks(tasks, gulp) {
   gulp = gulp || require("gulp");
   const hGulp = gulpHelp(gulp, {hideDepsMessage: true});
-  hGulp.task('default', "List all available tasks", taskListing);
+  hGulp.task('default', "Invokes gulp help", [ "help" ]);
 
   const makeRunSequence = (taskArray) => {
     taskArray = taskArray.slice(0);
