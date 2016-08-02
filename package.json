@@ -1,5 +1,5 @@
 {
-  "name": "@walmart/electrode-gulp-helper",
+  "name": "electrode-gulp-helper",
   "version": "1.0.0",
   "description": "Helper functions for using gulp",
   "main": "index.js",
@@ -9,11 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gecgithub01.walmart.com:electrode/electrode-gulp-helper.git"
+    "url": ""
   },
   "keywords": [],
   "author": "Joel Chen <xchen@walmartlabs.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 4.2.2"
+  },
   "dependencies": {
     "gulp-help": "^1.6.1",
     "run-sequence": "^1.2.2",
