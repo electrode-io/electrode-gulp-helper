@@ -27,6 +27,7 @@ describe("gulp load tasks", function () {
     let e = 0;
     let f = 0;
     let h = 0;
+    let i = 0;
     const tasks = {
       // simple function
       "a": () => a++,
@@ -60,6 +61,9 @@ describe("gulp load tasks", function () {
         dep: ["b"],
         desc: false,
         task: () => h++
+      },
+      "i": {
+        task: () => i++
       }
     };
 
@@ -72,10 +76,11 @@ describe("gulp load tasks", function () {
     expect(a).to.equal(1);
     expect(c).to.equal(2);
     expect(gulp.tasks["f"].help).to.be.ok;
-    expect(gulp.tasks["f"].help.message).to.equal("task f");
+    expect(gulp.tasks["f"].help.message).includes("task f");
     expect(gulp.tasks[".c"].help).to.equal(undefined);
     expect(gulp.tasks["h"]).to.equal(undefined);
     expect(gulp.tasks["hh"]).to.be.ok;
     expect(gulp.tasks["hh"].help).to.equal(undefined);
+    expect(gulp.tasks["i"].help.message).to.equal("");
   });
 });
