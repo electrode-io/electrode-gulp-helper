@@ -1,19 +1,21 @@
-# electrode-gulp-load-tasks
+# electrode-gulp-helper
 
-Load gulp tasks from an object spec.
+Gulp helper functions.
 
 ## Usage
 
 Install:
 
 ```
-npm install @walmart/electrode-gulp-load-tasks --save-dev
+npm install electrode-gulp-helper --save-dev
 ```
 
 ## API
 
+### [loadTasks](#loadtasks)
+
 ```js
-gulpLoadTasks( tasks, gulp )
+loadTasks( tasks, gulp )
 ```
 
 ***gulp*** - pass in gulp instance.  If not provided, then it's attempted with `require("gulp")`.
@@ -85,5 +87,22 @@ The `dep` specified a dependent array of tasks following the [array spec](#array
 gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, taskData.dep) );
 ```
 
+### [exec](#exec)
+
+```js
+exec( shellCommand, [callback] );
+```
+
+Use [shelljs] `exec` to execute `shellCommand`.
+
+If callback is provided, it will be called as follows:
+
+`callback( code !== 0 ? new Error("...") : undefined, { stdout, stderr } )`
+
+`stdout` and `stderr` is also set in the error object.
+
+If no callback is provided, it will return a Promise that rejects with the error or resolve with `{ stdout, stderr }`.
+
 [gulp-help]: https://github.com/chmontgomery/gulp-help
 [run-sequence]: https://github.com/OverZealous/run-sequence
+[shelljs]: https://github.com/shelljs/shelljs

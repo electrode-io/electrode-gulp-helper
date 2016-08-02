@@ -1,7 +1,7 @@
 {
-  "name": "@walmart/electrode-gulp-load-tasks",
-  "version": "1.0.2",
-  "description": "Load gulp tasks from an object data",
+  "name": "@walmart/electrode-gulp-helper",
+  "version": "1.0.0",
+  "description": "Helper functions for using gulp",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/spec",
@@ -9,14 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gecgithub01.walmart.com:electrode/electrode-gulp-load-tasks.git"
+    "url": "git@gecgithub01.walmart.com:electrode/electrode-gulp-helper.git"
   },
   "keywords": [],
   "author": "Joel Chen <xchen@walmartlabs.com>",
   "license": "UNLICENSED",
   "dependencies": {
     "gulp-help": "^1.6.1",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "shelljs": "^0.7.3"
   },
   "optionalDependencies": {
     "gulp": "^3.9.1"

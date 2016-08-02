@@ -1,5 +1,5 @@
 "use strict";
-const gulpLoadTasks = require("../../index");
+const gulpHelper = require("../../index");
 const chai = require("chai");
 const expect = chai.expect;
 
@@ -12,11 +12,11 @@ function reloadGulp() {
 describe("gulp load tasks", function () {
   it("should enforce taskData type", function () {
     const noOp = () => undefined;
-    expect(() => gulpLoadTasks()).to.throw();
-    expect(() => gulpLoadTasks({})).to.throw();
-    expect(() => gulpLoadTasks({"oops": 12345})).to.throw();
-    expect(() => gulpLoadTasks({"oops": {task: 12345}})).to.throw();
-    expect(() => gulpLoadTasks({"oops": {desc: 12345, task: noOp}})).to.throw();
+    expect(() => gulpHelper.loadTasks()).to.throw();
+    expect(() => gulpHelper.loadTasks({})).to.throw();
+    expect(() => gulpHelper.loadTasks({"oops": 12345})).to.throw();
+    expect(() => gulpHelper.loadTasks({"oops": {task: 12345}})).to.throw();
+    expect(() => gulpHelper.loadTasks({"oops": {desc: 12345, task: noOp}})).to.throw();
   });
 
   it("should add tasks properly", function () {
@@ -63,7 +63,7 @@ describe("gulp load tasks", function () {
       }
     };
 
-    gulpLoadTasks(tasks, gulp);
+    gulpHelper.loadTasks(tasks, gulp);
     gulp.start(".c");
     expect(c).to.equal(1);
     gulp.start("e");
