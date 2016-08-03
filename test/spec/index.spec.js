@@ -2,6 +2,7 @@
 const gulpHelper = require("../../index");
 const chai = require("chai");
 const expect = chai.expect;
+const runSequence = require("run-sequence");
 
 function reloadGulp() {
   const name = require.resolve("gulp");
@@ -19,7 +20,7 @@ describe("gulp load tasks", function () {
     expect(() => gulpHelper.loadTasks({"oops": {desc: 12345, task: noOp}})).to.throw();
   });
 
-  it("should add tasks properly", function () {
+  it("should add tasks properly", function (done) {
     const gulp = reloadGulp();
 
     let a = 0;
@@ -30,7 +31,12 @@ describe("gulp load tasks", function () {
     let i = 0;
     const tasks = {
       // simple function
-      "a": () => a++,
+      "a": () => new Promise((resolve) => {
+        setTimeout(() => {
+          a++;
+          resolve();
+        }, 150)
+      }),
       // simple array
       "b": ["a"],
       // simple function with help turned off by .
@@ -42,12 +48,12 @@ describe("gulp load tasks", function () {
       // object with desc turned off
       "e": {
         desc: false,
-        task: () => e++
+        task: () => Promise.resolve(e++)
       },
       // object with desc and function task
       "f": {
         desc: "task f",
-        task: () => f++
+        task: () => Promise.resolve(f++)
       },
       // object with dep, desc, and array task
       "g": {
@@ -60,27 +66,46 @@ describe("gulp load tasks", function () {
         name: "hh",
         dep: ["b"],
         desc: false,
-        task: () => h++
+        task: (cb) => {
+          h++;
+          cb();
+        }
       },
       "i": {
-        task: () => i++
+        task: () => Promise.resolve(i++)
+      },
+      "t": [".c", "g"],
+      "eh": "echo hello",
+      "eh2": {
+        task: "echo hello2"
+      },
+      "eh3": {
+        desc: "eh3",
+        task: "echo hello3"
       }
     };
 
     gulpHelper.loadTasks(tasks, gulp);
-    gulp.start(".c");
-    expect(c).to.equal(1);
-    gulp.start("e");
-    expect(e).to.equal(1);
-    gulp.start("g");
-    expect(a).to.equal(1);
-    expect(c).to.equal(2);
-    expect(gulp.tasks["f"].help).to.be.ok;
-    expect(gulp.tasks["f"].help.message).includes("task f");
-    expect(gulp.tasks[".c"].help).to.equal(undefined);
-    expect(gulp.tasks["h"]).to.equal(undefined);
-    expect(gulp.tasks["hh"]).to.be.ok;
-    expect(gulp.tasks["hh"].help).to.equal(undefined);
-    expect(gulp.tasks["i"].help.message).to.equal("");
+    gulp.task("v0", () => {
+      expect(c).to.equal(1);
+    });
+    gulp.task("v1", () => {
+      expect(a).to.equal(1);
+      expect(c).to.equal(2);
+      expect(gulp.tasks["f"].help).to.be.ok;
+      expect(gulp.tasks["f"].help.message).includes("task f");
+      expect(gulp.tasks[".c"].help).to.equal(undefined);
+      expect(gulp.tasks["h"]).to.equal(undefined);
+      expect(gulp.tasks["hh"]).to.be.ok;
+      expect(gulp.tasks["hh"].help).to.equal(undefined);
+      expect(gulp.tasks["i"].help.message).to.equal("");
+      expect(gulp.tasks["eh"].help.message).includes("echo hello");
+      expect(gulp.tasks["eh2"].help.message).includes("echo hello2");
+      expect(gulp.tasks["eh3"].help.message).includes("eh3");
+    });
+    gulp.task("v2", () => {
+      expect(e).to.equal(1);
+    });
+    runSequence(".c", "v0", "g", "v1", "e", "v2", "eh", "eh2", "eh3", done);
   });
 });
