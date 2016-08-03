@@ -1,6 +1,6 @@
 # electrode-gulp-helper
 
-Gulp helper functions.
+Helper functions for managing gulp tasks loading and executing.
 
 ## Usage
 
@@ -10,12 +10,18 @@ Install:
 npm install electrode-gulp-helper --save-dev
 ```
 
+```js
+const gulpHelper = require("electrode-gulp-helper");
+
+gulpHelper.loadTasks( tasks );
+```
+
 ## API
 
 ### [loadTasks](#loadtasks)
 
 ```js
-loadTasks( tasks, gulp )
+gulpHelper.loadTasks( tasks, gulp )
 ```
 
 ***gulp*** - pass in gulp instance.  If not provided, then it's attempted with `require("gulp")`.
@@ -90,7 +96,7 @@ gulp.task( `${taskName}$deps$`, false, () => runSequence.use(gulp).apply(null, t
 ### [exec](#exec)
 
 ```js
-exec( shellCommand, [callback] );
+gulpHelper.exec( shellCommand, [callback] );
 ```
 
 Use [shelljs] `exec` to execute `shellCommand`.
@@ -102,6 +108,31 @@ If callback is provided, it will be called as follows:
 `stdout` and `stderr` is also set in the error object.
 
 If no callback is provided, it will return a Promise that rejects with the error or resolve with `{ stdout, stderr }`.
+
+### [envPath.addToFront](#envpathaddtofront)
+
+```js
+gulpHelper.envPath.addToFront(path);
+```
+
+Add `path` to the front of `process.env.PATH`.  If it already exist, then it's moved to the front.
+
+### [envPath.addToEnd](#envpathaddtoend)
+
+```js
+gulpHelper.envPath.addToEnd(path);
+```
+
+Add `path` to the end of `process.env.PATH`.  If it already exist, then it's moved to the end.
+
+### [envPath.add](#envpathadd)
+
+```js
+gulpHelper.envPath.add(path);
+```
+
+If `path` doesn't exist in `process.env.PATH` then it's added to the end.
+
 
 [gulp-help]: https://github.com/chmontgomery/gulp-help
 [run-sequence]: https://github.com/OverZealous/run-sequence
