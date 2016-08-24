@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:electrode-io/electrode-gulp-helper.git"
   },
   "keywords": [],
   "author": "Joel Chen <xchen@walmartlabs.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">= 4.2.2"
   },
