@@ -35,11 +35,15 @@ gulpHelper.loadTasks( tasks, gulp )
 }
 ```
 
-Where [taskData](#taskdata) can be a `function`, `array`, or `object`.
+Where [taskData](#taskdata) can be a `string`, `function`, `array`, or `object`.
 
 ### taskData
 
-`taskData` specifies a task for gulp.  It can be a `function`, `array`, or `object`.
+`taskData` specifies a task for gulp.  It can be a `string`, `function`, `array`, or `object`.
+
+#### string
+
+If it's a ***string***, then it's treated as a shell command and executed using [exec](#exec).
 
 #### function
 
@@ -78,10 +82,10 @@ If it's an ***object***, it should follow this spec:
 
 ```js
 {
-    name: "task-name",     // optional - use this instead of the key field for task name
-    dep: array,            // optional - list of dependent tasks - follow definition above
-    desc: "description",   // optional
-    task: function | array // follow the definitions above
+    name: "task-name",   // optional - use this instead of the key field for task name
+    dep: array,          // optional - list of dependent tasks - follow definition above
+    desc: "description", // optional
+    task: string|function|array // follow the definitions above
 }
 ```
 
