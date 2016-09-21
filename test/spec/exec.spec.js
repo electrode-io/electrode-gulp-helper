@@ -14,14 +14,14 @@ describe("exec", function () {
     gulpHelper.exec("unknown_command", function(err, output) {
       expect(err).to.be.ok;
       expect(err.stderr).equals(output.stderr);
-      expect(output.stderr).includes("command not found");
+      expect(output.stderr).includes("not found");
       done();
     });
   });
 
   it("should failed for unknown command @Promise", function () {
     return gulpHelper.exec("unknown_command").then(() => { throw new Error("expected failure") }).catch((err) => {
-      expect(err.stderr).includes("command not found");
+      expect(err.stderr).includes("not found");
     });
   });
 
