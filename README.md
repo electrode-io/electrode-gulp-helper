@@ -1,4 +1,4 @@
-# electrode-gulp-helper
+# electrode-gulp-helper [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 Helper functions for managing gulp tasks loading and executing.
 
@@ -141,3 +141,9 @@ If `path` doesn't exist in `process.env.PATH` then it's added to the end.
 [gulp-help]: https://github.com/chmontgomery/gulp-help
 [run-sequence]: https://github.com/OverZealous/run-sequence
 [shelljs]: https://github.com/shelljs/shelljs
+[npm-image]: https://badge.fury.io/js/electrode-gulp-helper.svg
+[npm-url]: https://npmjs.org/package/electrode-gulp-helper
+[travis-image]: https://travis-ci.org/electrode-io/electrode-gulp-helper.svg?branch=master
+[travis-url]: https://travis-ci.org/electrode-io/electrode-gulp-helper
+[daviddm-image]: https://david-dm.org/electrode-io/electrode-gulp-helper.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/electrode-io/electrode-gulp-helper
