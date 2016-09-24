@@ -1,6 +1,6 @@
 {
   "name": "electrode-gulp-helper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Helper functions for using gulp",
   "main": "index.js",
   "scripts": {
