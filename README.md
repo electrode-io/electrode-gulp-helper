@@ -119,7 +119,7 @@ If no callback is provided, it will return a Promise that rejects with the error
 gulpHelper.envPath.addToFront(path);
 ```
 
-Add `path` to the front of `process.env.PATH`.  If it already exist, then it's moved to the front.
+Add `path` to the front of `process.env.PATH`.  If it already exists, then it is moved to the front.
 
 ### [envPath.addToEnd](#envpathaddtoend)
 
@@ -127,7 +127,7 @@ Add `path` to the front of `process.env.PATH`.  If it already exist, then it's m
 gulpHelper.envPath.addToEnd(path);
 ```
 
-Add `path` to the end of `process.env.PATH`.  If it already exist, then it's moved to the end.
+Add `path` to the end of `process.env.PATH`.  If it already exists, then it is moved to the end.
 
 ### [envPath.add](#envpathadd)
 
