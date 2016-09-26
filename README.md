@@ -55,7 +55,7 @@ gulp.task( taskName, description, taskData );
 
 > The description support is added with the module [gulp-help]
 
-If `taskName` starts with `.` then the description is `false` and disabled, else it's an empty string `""`.  You can specify description if you use [object](#object) for `taskData`. 
+If `taskName` starts with `.` then the description is `false` and disabled, else it's an empty string `""`.  You can specify description if you use [object](#object) for `taskData`.
 
 
 #### array
@@ -119,7 +119,7 @@ If no callback is provided, it will return a Promise that rejects with the error
 gulpHelper.envPath.addToFront(path);
 ```
 
-Add `path` to the front of `process.env.PATH`.  If it already exist, then it's moved to the front.
+Add `path` to the front of `process.env.PATH`.  If it already exists, then it is moved to the front.
 
 ### [envPath.addToEnd](#envpathaddtoend)
 
@@ -127,7 +127,7 @@ Add `path` to the front of `process.env.PATH`.  If it already exist, then it's m
 gulpHelper.envPath.addToEnd(path);
 ```
 
-Add `path` to the end of `process.env.PATH`.  If it already exist, then it's moved to the end.
+Add `path` to the end of `process.env.PATH`.  If it already exists, then it is moved to the end.
 
 ### [envPath.add](#envpathadd)
 
@@ -137,6 +137,7 @@ gulpHelper.envPath.add(path);
 
 If `path` doesn't exist in `process.env.PATH` then it's added to the end.
 
+Built with :heart: by [Team Electrode](https://github.com/orgs/electrode-io/people) @WalmartLabs.
 
 [gulp-help]: https://github.com/chmontgomery/gulp-help
 [run-sequence]: https://github.com/OverZealous/run-sequence
