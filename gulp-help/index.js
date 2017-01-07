@@ -111,9 +111,9 @@ module.exports = function (gulp, options) {
     console.log('  gulp [TASK] [OPTIONS...]');
     console.log('');
 
-    const printTask = (name) => {
-      let guideChar = ".";
+    let guideChar = ".";
 
+    const printTask = (name) => {
       if (gulp.tasks[name].help || showAllTasks) {
         let help = gulp.tasks[name].help || {message: '', options: {}};
 
@@ -154,6 +154,7 @@ module.exports = function (gulp, options) {
     };
 
     const showTasks = (title, tasks) => {
+      guideChar = ".";
       console.log(chalk.underline(title));
       console.log('');
 
