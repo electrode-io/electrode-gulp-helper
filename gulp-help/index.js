@@ -1,5 +1,6 @@
-var objectAssign = require('object-assign'),
-  chalk = require('chalk'),
+"use strict";
+
+const chalk = require('chalk'),
   attachHelp = require('./lib/attach-help.js'),
   calculateMargin = require('./lib/calculate-margin.js'),
   noop = require('./lib/noop'),
@@ -12,9 +13,9 @@ var objectAssign = require('object-assign'),
   };
 
 module.exports = function (gulp, options) {
-  var originalTaskFn = gulp.task;
+  let originalTaskFn = gulp.task;
 
-  options = objectAssign({}, DEFAULT_OPTIONS, options);
+  options = Object.assign({}, DEFAULT_OPTIONS, options);
 
   /**
    * gulp.task(name[, help, deps, fn, taskOptions])
@@ -27,8 +28,8 @@ module.exports = function (gulp, options) {
    * @param {function} [fn]
    * @param {object} [taskOptions]
    */
-  gulp.task = function (name, help, deps, fn, taskOptions) {
-    var task;
+  gulp.task = (name, help, deps, fn, taskOptions) => {
+    let task;
 
     /* jshint noempty: false */
     if (name && (help === null || help === undefined)) {
@@ -80,7 +81,7 @@ module.exports = function (gulp, options) {
 
     task = gulp.tasks[name];
 
-    taskOptions = objectAssign({
+    taskOptions = Object.assign({
       aliases: []
     }, taskOptions);
 
@@ -94,34 +95,35 @@ module.exports = function (gulp, options) {
     return gulp;
   };
 
-  gulp.task('help', options.description, function () {
-    var marginData = calculateMargin(gulp.tasks);
-    var margin = marginData.margin;
-    var hideDepsMessageOpt = options.hideDepsMessage;
-    var hideEmptyOpt = options.hideEmpty;
-    var showAllTasks = process.argv.indexOf('--all') !== -1;
-    var afterPrintCallback = options.afterPrintCallback;
+  gulp.task('help', options.description, () => {
+    let marginData = calculateMargin(gulp.tasks);
+    let margin = marginData.margin;
+    let hideDepsMessageOpt = options.hideDepsMessage;
+    let hideEmptyOpt = options.hideEmpty;
+    let showAllTasks = process.argv.indexOf('--all') !== -1;
+    let afterPrintCallback = options.afterPrintCallback;
 
     // set options buffer if the tasks array has options
-    var optionsBuffer = marginData.hasOptions ? '  --' : '';
+    let optionsBuffer = marginData.hasOptions ? '  --' : '';
 
     console.log('');
     console.log(chalk.underline('Usage'));
     console.log('  gulp [TASK] [OPTIONS...]');
     console.log('');
-    console.log(chalk.underline('Available tasks'));
-    var guideChar = ".";
-    Object.keys(gulp.tasks).sort().forEach(function (name) {
+
+    const printTask = (name) => {
+      let guideChar = ".";
+
       if (gulp.tasks[name].help || showAllTasks) {
-        var help = gulp.tasks[name].help || {message: '', options: {}};
+        let help = gulp.tasks[name].help || {message: '', options: {}};
 
         if (!showAllTasks && help.message === '' && hideEmptyOpt) {
           return; //skip task
         }
-        var args = [' ', chalk.cyan(name)];
 
+        let args = [' ', chalk.cyan(name)];
 
-        var namePadding = new Array(margin - name.length + 1 + optionsBuffer.length);
+        let namePadding = new Array(margin - name.length + 1 + optionsBuffer.length);
         if (help.message) {
           args.push(chalk.dim(namePadding.join(guideChar)));
           guideChar = guideChar === '.' ? '-' : '.';
@@ -138,9 +140,9 @@ module.exports = function (gulp, options) {
           args.push(chalk.cyan(help.depsMessage));
         }
 
-        var options = Object.keys(help.options).sort();
+        let options = Object.keys(help.options).sort();
         options.forEach(function (option) {
-          var optText = help.options[option];
+          let optText = help.options[option];
           args.push('\n ' + optionsBuffer + chalk.cyan(option) + ' ');
 
           args.push(new Array(margin - option.length + 1).join(' '));
@@ -149,8 +151,42 @@ module.exports = function (gulp, options) {
 
         console.log.apply(console, args);
       }
-    });
-    console.log('');
+    };
+
+    const showTasks = (title, tasks) => {
+      console.log(chalk.underline(title));
+      console.log('');
+
+      tasks.sort().forEach(printTask);
+      console.log('');
+    };
+
+    const tasks = Object.keys(gulp.tasks).reduce((a, t) => {
+      let k;
+      if (t.match(/(^\.)|([$~])/)) {
+        k = "hidden";
+      } else if (t.match(/^[a-zA-Z_0-9]+$/)) {
+        k = "primary";
+      } else {
+        k = "other";
+      }
+      a[k] = a[k] || [];
+      a[k].push(t);
+      return a;
+    }, {});
+
+    if (tasks.primary) {
+      showTasks('Primary tasks', tasks.primary);
+    }
+
+    if (tasks.other) {
+      showTasks('Other tasks', tasks.other);
+    }
+
+    if (tasks.hidden && showAllTasks) {
+      showTasks('Hidden tasks', tasks.hidden);
+    }
+
     if (afterPrintCallback) {
       afterPrintCallback(gulp.tasks);
     }
