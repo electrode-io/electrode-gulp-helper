@@ -2,7 +2,7 @@
 const gulpHelper = require("../../index");
 const chai = require("chai");
 const expect = chai.expect;
-const runSequence = require("run-sequence");
+const runSequence = require("../../run-sequence");
 
 function reloadGulp() {
   const name = require.resolve("gulp");
