@@ -113,6 +113,8 @@ If callback is provided, it will be called as follows:
 
 If no callback is provided, it will return a Promise that rejects with the error or resolve with `{ stdout, stderr }`.
 
+`shellCommand` can be combination of multiple strings and arrays.  Array is joined with `" "` into strings.  All final strings are joined with `" "`.
+
 ### [envPath.addToFront](#envpathaddtofront)
 
 ```js
